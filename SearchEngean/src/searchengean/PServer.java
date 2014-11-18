@@ -8,6 +8,8 @@ package searchengean;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import InputOutFiles.* ;
+import java.io.IOException;
 
 /**
  *
@@ -21,6 +23,13 @@ public class PServer extends UnicastRemoteObject implements PServerInterface{
 
     @Override
     public String search(String songName) throws RemoteException {
-        return songName ;
+        String songSearch = "" ;
+        try {
+           songSearch = ReadFromFile.readFromFile(songName , "TestFile.txt");
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return  songSearch ;
     }
 }

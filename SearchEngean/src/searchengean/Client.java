@@ -20,7 +20,7 @@ public class Client {
         int port = 5000 ;
         Registry registry = LocateRegistry.getRegistry("localhost", port) ;
         PServerInterface pServer = (PServerInterface) registry.lookup("//localhost:5000/SearchEngean") ;
-        System.out.println(pServer.search("new song"));
+        System.out.println(pServer.search("i will always love u"));
         
     }
 }
