@@ -31,7 +31,7 @@ public class ReadFromFile {
                 if (songNameFromFile == null)
                     break ;
                 if (songName.equals(songNameFromFile)) {
-                    searchResult += file.getPath() + "  " + songName +"\n";
+                    searchResult += file.getAbsolutePath() + "  " + songName +"\n";
                     found = true ;
                 }
             }
