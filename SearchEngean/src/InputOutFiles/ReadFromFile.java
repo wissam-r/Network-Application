@@ -5,11 +5,11 @@
  */
 package InputOutFiles;
 
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 
 /**
  *
@@ -19,23 +19,26 @@ public class ReadFromFile {
 
     public static String readFromFile(String songName, String fileName) throws IOException, ClassNotFoundException {
 
-        ObjectInputStream readObjectS;
-        File file = new File(fileName);
-        readObjectS = new ObjectInputStream(new FileInputStream(file));
-//                return (String) readObjectS.readObject() ;
-
+        File file = new File(fileName);        
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferReader = new BufferedReader(fileReader);
+        String searchResult = "" ;
         String songNameFromFile = null;
+        boolean found = false ;
         try {
             while (true) {
-
-                songNameFromFile = (String) readObjectS.readObject();
+                songNameFromFile = bufferReader.readLine() ;
+                if (songNameFromFile == null)
+                    break ;
                 if (songName.equals(songNameFromFile)) {
-                    return file.getPath() + "  " + songName;
+                    searchResult += file.getPath() + "  " + songName +"\n";
+                    found = true ;
                 }
-
             }
-        } catch (EOFException ex) {
-            readObjectS.close();
+            if (found)
+                return searchResult ;
+             return "Song Not Found";
+        } catch (EOFException ex) { 
             return "Song Not Found";
         }
 
