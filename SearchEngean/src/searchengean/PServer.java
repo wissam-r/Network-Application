@@ -20,7 +20,7 @@ public class PServer extends UnicastRemoteObject implements PServerInterface{
     public PServer () throws RemoteException {
         super() ;
     }
-
+    
     @Override
     public String search(String songName) throws RemoteException {
         String songSearch = "" ;
@@ -30,6 +30,9 @@ public class PServer extends UnicastRemoteObject implements PServerInterface{
         catch (Exception ex){
             ex.printStackTrace();
         }
-        return  songSearch ;
+        if(songSearch.equals("Song Not Found")){
+            //TODO here ya shee5 
+        }
+        return songSearch ;
     }
 }
