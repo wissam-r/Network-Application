@@ -10,15 +10,21 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import InputOutFiles.* ;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import multicast.mcsend;
 
 /**
  *
  * @author CG
  */
 public class PServer extends UnicastRemoteObject implements PServerInterface{
-    
-    public PServer () throws RemoteException {
+    private mcsend channel;
+    public PServer () throws RemoteException, Exception {
         super() ;
+        //TODO:open a tcp socket server to recieve from secondary servers
+        //open a multicast socket to connect with secondary servers
+        this.channel = new mcsend(5000, "228.5.6.7", 1);
     }
     
     @Override
@@ -31,7 +37,11 @@ public class PServer extends UnicastRemoteObject implements PServerInterface{
             ex.printStackTrace();
         }
         if(songSearch.equals("Song Not Found")){
-            //TODO here ya shee5 
+            try {
+                this.channel.send(songName);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         return songSearch ;
     }
