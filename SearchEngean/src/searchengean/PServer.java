@@ -44,6 +44,7 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
         }
         if(songSearch.equals("Song Not Found")){
             try {
+                // clear result array for new search
                 response.clear();
                 //multicast all secondary servers the song's name
                 this.channel.send(songName);
