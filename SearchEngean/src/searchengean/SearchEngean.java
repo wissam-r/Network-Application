@@ -21,6 +21,7 @@ public class SearchEngean {
         
         try {
             PServer pServer = new PServer() ;
+            
             int port = 5000 ;
             Registry registry = LocateRegistry.createRegistry(port) ;
             registry.rebind("//localhost:5000/SearchEngean", pServer);

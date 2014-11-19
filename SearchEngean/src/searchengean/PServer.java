@@ -49,8 +49,9 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
                 //wait for responses from the secondary servers
                 boolean SecondarySearchDone = false;
                 while(!SecondarySearchDone){
-                    if(this.SServers == response.size())
+                    if(this.SServers == response.size()){
                         SecondarySearchDone = true;
+                        songSearch = response.toString() ;}
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
