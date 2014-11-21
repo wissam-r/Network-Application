@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package searchengean;
+package searchengine;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -13,18 +13,17 @@ import java.rmi.registry.Registry;
  *
  * @author CG
  */
-public class SearchEngean {
+public class SearchEngine {
     
     
     public static void main(String[] args) {
             
         
         try {
-            PServer pServer = new PServer() ;
-            
+            PServer pServer = new PServer() ;         
             int port = 5000 ;
             Registry registry = LocateRegistry.createRegistry(port) ;
-            registry.rebind("//localhost:5000/SearchEngean", pServer);
+            registry.rebind("//localhost:5000/searchEngine", pServer);
         }
         catch (Exception ex) {
             ex.printStackTrace();

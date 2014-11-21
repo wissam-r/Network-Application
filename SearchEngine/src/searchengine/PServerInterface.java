@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package searchengean;
+
+package searchengine;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
  *
- * @author eyadof
+ * @author CG
  */
-public interface SServerinterface extends Remote{
-    public void join() throws RemoteException;
-    public void submitResault(String res) throws RemoteException;
+public interface PServerInterface extends Remote{
+    public String search(String songName) throws RemoteException;
 }
