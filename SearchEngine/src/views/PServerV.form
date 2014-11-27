@@ -123,7 +123,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="FilePathT">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TestFile.txt"/>
+        <Property name="text" type="java.lang.String" value="TestPath"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="FileNameL">

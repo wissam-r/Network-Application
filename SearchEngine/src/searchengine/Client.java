@@ -6,10 +6,13 @@
 
 package searchengine;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
 /**
  *
@@ -27,6 +30,8 @@ public class Client {
     private int registryPort ;
     //sserver interface object
     PServerInterface pServer  ;
+    
+    String currentRunningSong = null ;
 
     public PServerInterface getpServer() {
         return pServer;
@@ -34,11 +39,7 @@ public class Client {
     
     
     public Client ()throws Exception{
-        this.registryName = "SearchEngine" ;
-        this.registryAddress = "localhost" ;
-        this.registryPort = 5000 ;
-        connectToTheEngine(registryName, registryAddress, registryPort);
-
+        this("SearchEngine","localhost" , 5000 ) ;
     }
     public Client (String registryName , String registryAddress ,
             int registryPort) throws Exception{
@@ -59,13 +60,20 @@ public class Client {
             ("//"+registryAddress+":"+registryPort+"/"+registryName);
     }
     
-    public static String search(String songName , PServerInterface pServer) throws RemoteException{
-        return pServer.search(songName) ;
+    public static String search(String songName ,String specifiPath , PServerInterface pServer) throws RemoteException{
+        //call the search from connected PServer
+        String result = pServer.search(songName , specifiPath)  ;
+        if (result.equals(""))
+            return "no match" ;
+        return result ;
+    }
+    public void playSong (String songPath) throws RemoteException , JavaLayerException, Exception{
+        pServer.playSong(songPath) ;
+    }
+    public String getLyrics (String songPath) throws RemoteException, IOException , Exception{
+        System.out.println(songPath.substring(0  ,songPath.length()-3));
+        return pServer.getLyrics(songPath.substring(0  ,songPath.length()-3)+"txt") ;
     }
     public static void main(String[] args) throws RemoteException, NotBoundException  {
-        int port = 5000 ;
-        Registry registry = LocateRegistry.getRegistry("localhost", port) ;
-        PServerInterface pServer = (PServerInterface) registry.lookup("//localhost:5000/SearchEngine") ;
-        System.out.println(pServer.search("test secondry"));      
     }
 }

@@ -6,6 +6,8 @@
 
 package views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author CG
@@ -66,7 +68,7 @@ public class SServerV extends javax.swing.JFrame {
 
         jLabel3.setText("Reg Addre");
 
-        FilePathT.setText("songs.txt");
+        FilePathT.setText("TestPath2");
 
         RegPortT.setText("5000");
 
@@ -151,8 +153,19 @@ public class SServerV extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void StartEngineBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartEngineBActionPerformed
-        searchengine.SServer sServer = new searchengine.SServer() ;
+        try{
+        searchengine.SServer sServer = new searchengine.SServer(
+                    FilePathT.getText() , RegNameT.getText()  ,RegAddT.getText() ,
+                      Integer.valueOf(RegPortT.getText()) , 
+                      MulticastAddT.getText()  , Integer.valueOf(MulticastPortT.getText())) ;
         sServer.start();
+        JOptionPane.showMessageDialog(this, "Engine Started") ;
+        StartEngineB.setEnabled(false);
+        }
+        
+        catch (Exception ex){
+                    JOptionPane.showMessageDialog(this, ex.getMessage()) ;
+}
     }//GEN-LAST:event_StartEngineBActionPerformed
 
     /**

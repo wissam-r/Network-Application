@@ -157,7 +157,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="FilePathT">
       <Properties>
-        <Property name="text" type="java.lang.String" value="songs.txt"/>
+        <Property name="text" type="java.lang.String" value="TestPath2"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="RegPortT">

@@ -6,8 +6,14 @@
 
 package searchengine;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.io.File;
+import java.io.FileInputStream;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+import javax.swing.JOptionPane;
+import javazoom.jl.player.Player;
+
 
 /**
  *
@@ -20,10 +26,9 @@ public class SearchEngine {
             
         
         try {
-            PServer pServer = new PServer() ;         
-            int port = 5000 ;
-            Registry registry = LocateRegistry.createRegistry(port) ;
-            registry.rebind("//localhost:5000/searchEngine", pServer);
+                FileInputStream fis = new FileInputStream("123/123.mp3");
+                Player playMP3 = new Player(fis);
+                playMP3.play();
         }
         catch (Exception ex) {
             ex.printStackTrace();

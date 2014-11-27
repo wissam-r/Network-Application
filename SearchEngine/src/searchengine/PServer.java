@@ -9,10 +9,17 @@ package searchengine;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import InputOutFiles.* ;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import multicast.mcsend;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
 /**
  *
@@ -43,6 +50,7 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
     
     public PServer (String filePath , String registryName , String registryAddress ,int registryPort 
             , String multicastAddress , int multicastPort) throws RemoteException, Exception {
+        super();
         this.filePath =  filePath ;
         this.multicastAddress = multicastAddress ;
         this.multicastPort = multicastPort ;
@@ -55,53 +63,49 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
     }
     
     public PServer () throws RemoteException, Exception {
-        super() ;
-        
-        this.filePath = "TestFile.txt" ;
-        this.multicastAddress = "228.5.6.7" ;
-        this.multicastPort = 5001 ;
-        this.registryName = "SearchEngine" ;
-        this.registryAddress = "localhost" ;
-        this.registryPort = 5000 ;
-        this.startEngine(registryName, registryAddress, registryPort, this.registry );
-        //open a multicast socket to connect with secondary servers
-        this.channel = new mcsend(this.multicastPort, this.multicastAddress, 10);
+        this("TestFile.txt" ,"SearchEngine" ,"localhost",5000, "228.5.6.7" ,5001 );
     }
     
     
     private void startEngine (String registryName , String registryAddress ,
             int registryPort ,Registry registry) throws RemoteException{
         
+        //create registry for PServer
         registry = LocateRegistry.createRegistry(registryPort) ;
+        //bind the registry
         registry.rebind("//"+registryAddress+":"+registryPort+"/"+registryName, this);
     }
     @Override
-    public String search(String songName) throws RemoteException {
+    public String search(String songName , String specificPath) throws RemoteException {
         
         //define search result varible
         String songSearch = "" ;
         try {
             //search for the song in the specific file
-            songSearch = ReadFromFile.readFromFile(songName , this.filePath );
+            songSearch = Reader.searchForSong(this.filePath , songName , specificPath);
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
-        if(songSearch.equals("Song Not Found")){
+        if(songSearch.equals("")){
             try {
                 // clear result array for new search
                 response.clear();              
                 //multicast all secondary servers the song's name
                 this.channel.send(songName);
+                //multicast all secondary servers the song's path
+                this.channel.send(specificPath);
                 //wait for responses from the secondary servers
                 boolean SecondarySearchDone = false;
                 while(!SecondarySearchDone){
                     //wait for get the result from SServers
-                    Thread.sleep(500);
+                    Thread.sleep(250);
                     if(this.SServers == response.size()){
                         //all SServers replays
                         SecondarySearchDone = true;
-                        songSearch = response.toString() ;}
+                        for (String string : response) {
+                            songSearch += string +"\n" ;
+                        }}
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -125,5 +129,36 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
     public void submitResault(String resault){
         this.response.add(resault);
     }
+
+    @Override
+    public void playSong(String songPath) throws RemoteException  {
+        try { 
+            new MP3Player(songPath).start();
+        } catch (Exception ex) {
+            Logger.getLogger(PServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+
+    @Override
+    public void stopSong(String songPath) throws RemoteException {
+         FileInputStream fis ;
+        try {
+            fis = new FileInputStream(songPath);
+            Player playMP3 = new Player(fis);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JavaLayerException ex) {
+            Logger.getLogger(PServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }
+
+    @Override
+    public String getLyrics(String songPath) throws RemoteException , IOException {
+        return Reader.getLyricsFromFile(songPath) ;
+    }
+    
+
     
 }

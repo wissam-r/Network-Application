@@ -9,6 +9,8 @@ package views;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javazoom.jl.decoder.JavaLayerException;
 import searchengine.Client;
 
 /**
@@ -45,8 +47,15 @@ public class ClientV extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         SearchNameT = new javax.swing.JTextField();
         SearchB = new javax.swing.JButton();
+        SpecifiPathT = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        SongPathT = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        PlayB = new javax.swing.JButton();
+        LyricsB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Client");
 
         jLabel2.setText("Reg Name");
 
@@ -67,7 +76,7 @@ public class ClientV extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Song Name : ");
+        jLabel5.setText("Specifi Path : ");
 
         SearchNameT.setText("song name ....");
 
@@ -75,6 +84,26 @@ public class ClientV extends javax.swing.JFrame {
         SearchB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchBActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Song Name : ");
+
+        SongPathT.setText("song path ....");
+
+        jLabel7.setText("Song Path : ");
+
+        PlayB.setText("Play");
+        PlayB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PlayBActionPerformed(evt);
+            }
+        });
+
+        LyricsB.setText("Lyrics");
+        LyricsB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LyricsBActionPerformed(evt);
             }
         });
 
@@ -97,11 +126,29 @@ public class ClientV extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(RegPortT, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(connectToServerB, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(SearchNameT, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(SearchB, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jLabel5))
+                                    .addComponent(RegPortT, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(SearchNameT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(SongPathT, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(SearchB, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(PlayB, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(LyricsB, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(SpecifiPathT, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                    .addComponent(jLabel7))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -121,13 +168,24 @@ public class ClientV extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(connectToServerB)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpecifiPathT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SearchNameT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SearchB)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SongPathT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PlayB)
+                    .addComponent(LyricsB)))
         );
 
         pack();
@@ -136,18 +194,40 @@ public class ClientV extends javax.swing.JFrame {
     private void connectToServerBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectToServerBActionPerformed
         try {
             client = new Client(RegNameT.getText(), RegAddT.getText(), Integer.valueOf(RegPortT.getText())) ;
+            JOptionPane.showMessageDialog(this, "Connected") ;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, ex.getMessage()) ;
+
         }
     }//GEN-LAST:event_connectToServerBActionPerformed
 
     private void SearchBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBActionPerformed
         try {
-            System.out.println(Client.search(SearchNameT.getText(), this.client.getpServer())) ;
+//            System.out.println(Client.search(SearchNameT.getText(),SpecifiPathT.getText(), this.client.getpServer())) ;
+            JOptionPane.showMessageDialog(this, Client.search(SearchNameT.getText(),SpecifiPathT.getText(), this.client.getpServer())) ;
         } catch (RemoteException ex) {
-            ex.printStackTrace();
+             JOptionPane.showMessageDialog(this, ex.getMessage()) ;
+
         }
     }//GEN-LAST:event_SearchBActionPerformed
+
+    private void PlayBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayBActionPerformed
+        try{
+            this.client.playSong(SongPathT.getText());            
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage()) ;
+
+        }
+    }//GEN-LAST:event_PlayBActionPerformed
+
+    private void LyricsBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LyricsBActionPerformed
+        try {
+            JOptionPane.showMessageDialog(this, client.getLyrics(SongPathT.getText())) ;
+        } catch (Exception ex) {
+            Logger.getLogger(ClientV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_LyricsBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,15 +265,21 @@ public class ClientV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton LyricsB;
+    private javax.swing.JButton PlayB;
     private javax.swing.JTextField RegAddT;
     private javax.swing.JTextField RegNameT;
     private javax.swing.JTextField RegPortT;
     private javax.swing.JButton SearchB;
     private javax.swing.JTextField SearchNameT;
+    private javax.swing.JTextField SongPathT;
+    private javax.swing.JTextField SpecifiPathT;
     private javax.swing.JButton connectToServerB;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

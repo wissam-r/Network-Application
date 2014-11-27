@@ -8,6 +8,7 @@ package views;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,7 +56,7 @@ public class PServerV extends javax.swing.JFrame {
             }
         });
 
-        FilePathT.setText("TestFile.txt");
+        FilePathT.setText("TestPath");
 
         FileNameL.setText("File Name ");
 
@@ -154,24 +155,18 @@ public class PServerV extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void StartEngineBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartEngineBActionPerformed
-        try {
-//            searchengine.PServer searchEngine = new searchengine.PServer() ;
-//            int port = 5000 ;
-//            Registry registry = LocateRegistry.createRegistry(port) ;
-//            registry.rebind("//localhost:5000/searchEngine", searchEngine); 
-            
+        try {     
               searchengine.PServer searchEngine = new searchengine.PServer(
                     FilePathT.getText() , RegNameT.getText()  ,RegAddT.getText() ,
                       Integer.valueOf(RegPortT.getText()) , 
                       MulticastAddT.getText()  , Integer.valueOf(MulticastPortT.getText())
               ) ;
-//            System.out.println(FilePathT.getText() + RegNameT.getText()   +RegAddT.getText()  +
-//                      Integer.valueOf(RegPortT.getText()) +
-//                      MulticastAddT.getText()  + Integer.valueOf(MulticastPortT.getText()));
-
+              
+              JOptionPane.showMessageDialog(this, "Engine Started") ;
+              StartEngineB.setEnabled(false);
         }
         catch (Exception ex){
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, ex.getMessage()) ;
         }
     }//GEN-LAST:event_StartEngineBActionPerformed
 
