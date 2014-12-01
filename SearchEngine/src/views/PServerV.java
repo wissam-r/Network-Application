@@ -3,12 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package views;
 
+import java.awt.Color;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 /**
  *
@@ -155,18 +161,18 @@ public class PServerV extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void StartEngineBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartEngineBActionPerformed
-        try {     
-              searchengine.PServer searchEngine = new searchengine.PServer(
-                    FilePathT.getText() , RegNameT.getText()  ,RegAddT.getText() ,
-                      Integer.valueOf(RegPortT.getText()) , 
-                      MulticastAddT.getText()  , Integer.valueOf(MulticastPortT.getText())
-              ) ;
-              
-              JOptionPane.showMessageDialog(this, "Engine Started") ;
-              StartEngineB.setEnabled(false);
-        }
-        catch (Exception ex){
-            JOptionPane.showMessageDialog(this, ex.getMessage()) ;
+        try {
+            searchengine.PServer searchEngine = new searchengine.PServer(
+                    FilePathT.getText(), RegNameT.getText(), RegAddT.getText(),
+                    Integer.valueOf(RegPortT.getText()),
+                    MulticastAddT.getText(), Integer.valueOf(MulticastPortT.getText())
+            );
+
+            JOptionPane.showMessageDialog(this, "engine Started");
+
+            StartEngineB.setEnabled(false);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_StartEngineBActionPerformed
 

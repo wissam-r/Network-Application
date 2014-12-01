@@ -6,20 +6,21 @@
 
 package searchengine;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import InputOutFiles.* ;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import multicast.mcsend;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import multicast.mcsend;
 
 /**
  *
@@ -131,12 +132,13 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
     }
 
     @Override
-    public void playSong(String songPath) throws RemoteException  {
+    public File playSong(String songPath) throws RemoteException  {
         try { 
-            new MP3Player(songPath).start();
+        return new File(songPath);
         } catch (Exception ex) {
             Logger.getLogger(PServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null ;
         }
 
     @Override

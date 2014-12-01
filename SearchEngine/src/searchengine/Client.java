@@ -6,14 +6,13 @@
 
 package searchengine;
 
+import java.io.File;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-
 /**
  *
  * @author CG
@@ -30,8 +29,10 @@ public class Client {
     private int registryPort ;
     //sserver interface object
     PServerInterface pServer  ;
-    
-    String currentRunningSong = null ;
+    //current song file
+    private File currentSongFile = null ;
+    //current running song
+    private Thread currentSong= null ;
 
     public PServerInterface getpServer() {
         return pServer;
@@ -68,7 +69,26 @@ public class Client {
         return result ;
     }
     public void playSong (String songPath) throws RemoteException , JavaLayerException, Exception{
-        pServer.playSong(songPath) ;
+//        System.out.println(currentSongFile.getPath());
+       if (currentSongFile ==null){
+            currentSongFile = pServer.playSong(songPath) ;
+            System.out.println("null");
+       }
+       else if (!(currentSongFile.getPath().equals(songPath))){
+           currentSongFile = pServer.playSong(songPath) ;
+           System.out.println("note equal");
+       }
+       System.out.println("equal");
+        currentSong = new MP3Player(currentSongFile) ;
+        currentSong.start() ;
+        
+    }
+    public void stopSong () throws RemoteException , JavaLayerException, Exception{
+        if (!( currentSong == null)){
+            currentSong.stop(); 
+            currentSong = null ;
+        }
+        
     }
     public String getLyrics (String songPath) throws RemoteException, IOException , Exception{
         System.out.println(songPath.substring(0  ,songPath.length()-3));

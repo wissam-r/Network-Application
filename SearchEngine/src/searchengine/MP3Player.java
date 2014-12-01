@@ -6,6 +6,7 @@
 
 package searchengine;
 
+import java.io.File;
 import java.io.FileInputStream;
 import javazoom.jl.player.Player;
 
@@ -17,8 +18,9 @@ public class MP3Player extends Thread{
    
 
     Player playMP3;
-    public MP3Player(String songPath) throws Exception{
+    public MP3Player(File songPath) throws Exception{
         this.playMP3 = new Player(new FileInputStream(songPath));
+//        new FileInputStream
     }
     public void run()
                 {
