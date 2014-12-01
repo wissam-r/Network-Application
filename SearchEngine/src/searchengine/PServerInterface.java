@@ -7,11 +7,9 @@
 package searchengine;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import javazoom.jl.player.Player;
 
 /**
  *
@@ -19,7 +17,6 @@ import javazoom.jl.player.Player;
  */
 public interface PServerInterface extends Remote{
     public String search(String songName, String specificPath) throws RemoteException;
-    public File playSong(String songPath) throws RemoteException ;
-    public void stopSong(String songPath) throws RemoteException ;
+    public File getSong(String songPath) throws RemoteException ;
     public String getLyrics(String songPath) throws RemoteException ,IOException ;
 }

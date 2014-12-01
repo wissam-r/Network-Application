@@ -18,7 +18,10 @@ import javazoom.jl.decoder.JavaLayerException;
  * @author CG
  */
 
-
+/**
+ *
+ * @author CG
+ */
 public class Client {
     
     //define registry name
@@ -71,14 +74,11 @@ public class Client {
     public void playSong (String songPath) throws RemoteException , JavaLayerException, Exception{
 //        System.out.println(currentSongFile.getPath());
        if (currentSongFile ==null){
-            currentSongFile = pServer.playSong(songPath) ;
-            System.out.println("null");
+            currentSongFile = pServer.getSong(songPath) ;
        }
        else if (!(currentSongFile.getPath().equals(songPath))){
-           currentSongFile = pServer.playSong(songPath) ;
-           System.out.println("note equal");
+           currentSongFile = pServer.getSong(songPath) ;
        }
-       System.out.println("equal");
         currentSong = new MP3Player(currentSongFile) ;
         currentSong.start() ;
         

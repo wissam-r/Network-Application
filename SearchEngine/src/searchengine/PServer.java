@@ -8,8 +8,6 @@ package searchengine;
 
 import InputOutFiles.* ;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -132,9 +130,10 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
     }
 
     @Override
-    public File playSong(String songPath) throws RemoteException  {
+    public File getSong(String songPath) throws RemoteException  {
         try { 
-        return new File(songPath);
+            //get song file
+            return Reader.getSongFile(songPath);
         } catch (Exception ex) {
             Logger.getLogger(PServer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -142,22 +141,8 @@ public class PServer extends UnicastRemoteObject implements PServerInterface, SS
         }
 
     @Override
-    public void stopSong(String songPath) throws RemoteException {
-         FileInputStream fis ;
-        try {
-            fis = new FileInputStream(songPath);
-            Player playMP3 = new Player(fis);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JavaLayerException ex) {
-            Logger.getLogger(PServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-    }
-
-    @Override
     public String getLyrics(String songPath) throws RemoteException , IOException {
+        //get lyrics
         return Reader.getLyricsFromFile(songPath) ;
     }
     
