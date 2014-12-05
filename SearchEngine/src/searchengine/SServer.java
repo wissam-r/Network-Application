@@ -5,6 +5,7 @@
  */
 package searchengine;
 
+import java.rmi.RemoteException;
 import multicast.mcjoin;
 import java.io.*;
 import java.net.Socket;
@@ -30,6 +31,8 @@ public class SServer extends Thread {
     private String multicastAddress;
     //define multicast port
     private int multicastPort;
+    
+    private SServerInterface pServer  = null;
 
     public SServer() {
         this("TestPath2", "SearchEngine", "localhost", 5000, "228.5.6.7", 5001);
@@ -55,7 +58,7 @@ public class SServer extends Thread {
         //get getregistry
         Registry registry = LocateRegistry.getRegistry(registryAddress, registryPort);
         //get sserver interface object
-        SServerInterface pServer = (SServerInterface) registry.lookup("//" + registryAddress + ":" + registryPort + "/" + registryName);
+        pServer = (SServerInterface) registry.lookup("//" + registryAddress + ":" + registryPort + "/" + registryName);
         //join the group 
         mcjoin channel = new mcjoin(multicastPort, multicastAddress);
         //send join signal to the primary server
@@ -75,6 +78,10 @@ public class SServer extends Thread {
             }
         }
 
+    }
+    public void stopEngine() throws RemoteException{
+        if (pServer != null)
+            pServer.unJoin();
     }
 
     @Override
