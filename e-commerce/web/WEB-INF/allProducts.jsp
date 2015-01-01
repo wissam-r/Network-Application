@@ -56,9 +56,9 @@
                 </div>
                 <form method="POST" action="?"  enctype="multipart/form-data">
                     <div class="modal-body">
-                        <input class="form-control" type="text" name="title" placeholder="Product Title"/>
+                        <input class="form-control floating-label" type="text" name="title" placeholder="Product Title"/>
                         <br/>
-                        <input class="form-control" type="text" name="price" placeholder="Product Price"/>
+                        <input class="form-control floating-label" type="text" name="price" placeholder="Product Price"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

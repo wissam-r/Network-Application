@@ -9,14 +9,7 @@ import com.ecommerce.entities.Customer;
 import com.ecommerce.entities.Product;
 import com.ecommerce.sessions.CustomerFacade;
 import com.ecommerce.sessions.ProductFacade;
-import java.io.File;
-import java.nio.file.StandardOpenOption;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -24,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 /**
  *
@@ -72,7 +64,7 @@ public class Products extends HttpServlet {
         //get customer from db
         Customer c = customer.find(CustomerID);
         //handle delete
-        if (!request.getParameter("delete").equals(null)) {
+        if (request.getParameter("delete") != null) {
             //get ProductID from request
             int ProductID = Integer.parseInt(request.getParameter("ProductID"));
             //get product to delete it
@@ -82,16 +74,21 @@ public class Products extends HttpServlet {
         else {
             //get price and title from request
             String title = request.getParameter("title");
-            int price = Integer.parseInt(request.getParameter("price"));
+            try {
+                int price = Integer.parseInt(request.getParameter("price"));
+                //init new product object
+                Product p = new Product();
+                p.setCustomerID(c);
+                p.setTitle(title);
+                p.setPrice(price);
 
-            //init new product object
-            Product p = new Product();
-            p.setCustomerID(c);
-            p.setTitle(title);
-            p.setPrice(price);
-
-            //save product into db
-            product.create(p);
+                //save product into db
+                product.create(p);
+                request.setAttribute("success", "Product Created!");
+            }
+            catch(NumberFormatException e){
+                request.setAttribute("errors", "Product Price Error !");
+            }
         }
 
         request.setAttribute("Products", product.findAll());

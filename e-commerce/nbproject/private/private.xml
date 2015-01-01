@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/eyadof/Desktop/networkedApplication/e-commerce/src/java/com/ecommerce/servlets/admin.java</file>
-            <file>file:/home/eyadof/Desktop/networkedApplication/e-commerce/web/WEB-INF/web.xml</file>
-            <file>file:/home/eyadof/Desktop/networkedApplication/e-commerce/web/WEB-INF/header.jsp</file>
+            <file>file:/home/eyadof/Desktop/networkedApplication/e-commerce/web/WEB-INF/allAccounts.jsp</file>
+            <file>file:/home/eyadof/Desktop/networkedApplication/e-commerce/src/java/com/ecommerce/servlets/accounts.java</file>
             <file>file:/home/eyadof/Desktop/networkedApplication/e-commerce/src/java/com/ecommerce/servlets/Products.java</file>
         </group>
     </open-files>

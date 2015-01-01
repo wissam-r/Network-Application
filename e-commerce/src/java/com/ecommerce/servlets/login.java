@@ -11,6 +11,7 @@ import com.ecommerce.sessions.CustomerFacade;
 import com.ecommerce.sessions.ShoppingCartFacade;
 import java.io.IOException;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -88,7 +89,7 @@ public class login extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
             }
         }
-        catch(IOException | ServletException | NoResultException  e){
+        catch(IOException | ServletException | NoResultException | EJBException e){
             request.setAttribute("errors", "username not found!");
             request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
         }

@@ -11,15 +11,23 @@
     <c:forEach var="cart" items="${Carts}" varStatus="itr">
         <c:if test="itr.index % 3 == 0" >
             <div class="row">
-        </c:if>
-        <div class="col-md-4">
-            <div class="well">
-                <p style="font-size: 20px; color: #009587;">${cart.idShoppingCart}</p>
-                <p>Total:&nbsp${cart.totalBalance}&nbsp$</p>
-                <a class="btn btn-block btn-flat btn-primary" href="carts?id=${cart.idShoppingCart}">View</a>
+            </c:if>
+            <div class="col-md-4">
+                <div class="well">
+                    <p style="font-size: 20px; color: #009587;">${cart.idShoppingCart}</p>
+                    <p>Total:&nbsp${cart.totalBalance}&nbsp$</p>
+                    <a class="btn btn-flat btn-primary" href="/e-commerce/carts?id=${cart.idShoppingCart}">View</a>
+                    <c:if test="${sessionScope.role == 0}">
+                        <form method="POST" action="/e-commerce/carts">
+                            <div class="input-group">
+                                <input type="hidden" name="CartID" value="${cart.idShoppingCart}"/>
+                                <input class="btn btn-flat btn-danger " type="submit" name="delete" value="DELETE"/>
+                            </div>
+                        </form>
+                    </c:if>
+                </div>
             </div>
-        </div>
-        <c:if test="itr.index % 3 == 0" >
+            <c:if test="itr.index % 3 == 0" >
             </div>
         </c:if>
     </c:forEach>

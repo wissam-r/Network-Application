@@ -51,7 +51,7 @@
                             </ul>
                         </li>
                         <li><a href="accounts">Accounts</a></li>
-                        <c:if test="${sessionScope.role == 0}">
+                            <c:if test="${sessionScope.role == 0}">
                             <li class="dropdown">
                                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -63,13 +63,31 @@
                         </c:if>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="logout">Logout</a></li>
+                        <li><a href="/e-commerce/logout">Logout</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${sessionScope.CustomerID == null}">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="signup">SIGN UP</a></li>
                     </ul>
+                </c:if>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <c:if test="${errors != null}"> 
+                    <div class="alert alert-dismissable alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        ${errors}
+                    </div>
+                </c:if>
+                <c:if test="${success != null}">
+                    <div class="alert alert-dismissable alert-success">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        ${success}
+                    </div>
                 </c:if>
             </div>
         </div>

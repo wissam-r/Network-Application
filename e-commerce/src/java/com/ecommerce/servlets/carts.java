@@ -12,7 +12,6 @@ import com.ecommerce.sessions.CustomerFacade;
 import com.ecommerce.sessions.ProductFacade;
 import com.ecommerce.sessions.ShoppingCartFacade;
 import java.io.IOException;
-import java.util.Collection;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -84,23 +83,31 @@ public class carts extends HttpServlet {
             response.sendRedirect("/e-commerce/login");
             return;
         }
-        //save product into cart
-        //get productID from post data
-        int ProductID = Integer.parseInt(request.getParameter("ProductID"));
-        //get product object from bean;
-        Product pro = product.find(ProductID);
-        //get cart id from get data
-        int CartID = Integer.parseInt(request.getParameter("id"));
-        ShoppingCart c = cart.find(CartID);
-        //add product to cart
-        cart.addProduct(CartID, ProductID);
-        c.getProductCollection().add(pro);
-        //set total balance
-        c.setTotalBalance(c.getTotalBalance() + pro.getPrice());
-        //update cart information
-        cart.edit(c);
-        //return to product list
-        response.sendRedirect("/e-commerce/Products");
+        if(request.getParameter("delete") != null){
+            int CartID = Integer.parseInt(request.getParameter("CartID"));
+            ShoppingCart sc = cart.find(CartID);
+            cart.remove(sc);
+            response.sendRedirect("/e-commerce/admin/carts");
+        }
+        else{
+            //save product into cart
+            //get productID from post data
+            int ProductID = Integer.parseInt(request.getParameter("ProductID"));
+            //get product object from bean;
+            Product pro = product.find(ProductID);
+            //get cart id from get data
+            int CartID = Integer.parseInt(request.getParameter("id"));
+            ShoppingCart c = cart.find(CartID);
+            //add product to cart
+            cart.addProduct(CartID, ProductID);
+            c.getProductCollection().add(pro);
+            //set total balance
+            c.setTotalBalance(c.getTotalBalance() + pro.getPrice());
+            //update cart information
+            cart.edit(c);
+            //return to product list
+            response.sendRedirect("/e-commerce/Products");
+        }
     }
 
     /**

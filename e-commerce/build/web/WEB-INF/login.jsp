@@ -13,20 +13,13 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
-            <c:if test="${errors != null}"> 
-                <div class="alert alert-dismissable alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    ${errors}
-                </div>
-            </c:if>
-
             <div class="well bs-component">
                 <p>Welcome To SU-SHOP</p>
                 <br/>
                 <form class="form-horizontal" action="?" method="POST">
-                    <input class="form-control" name="username" type="text" placeholder="username"/>
+                    <input class="form-control floating-label" name="username" type="text" placeholder="username"/>
                     <br/>
-                    <input class="form-control" name="password" type="password" placeholder="password"/>
+                    <input class="form-control floating-label" name="password" type="password" placeholder="password"/>
                     <br/>
                     <input class="btn btn-primary btn-flat btn-group-justified" type="submit" value="Login"/>
                 </form> 

@@ -46,6 +46,11 @@ public class admin extends HttpServlet {
             response.sendRedirect("/e-commerce/login");
             return;
         }
+        //check role
+        if((int) session.getAttribute("role") != 0){
+            response.sendRedirect("/e-commerce/Products");
+            return;
+        }
         if (path.equals("/e-commerce/admin/customers")) {
             request.setAttribute("Customers", customer.findAll());
             request.getRequestDispatcher("/WEB-INF/allCustomer.jsp").forward(request, response);

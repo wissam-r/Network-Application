@@ -77,7 +77,8 @@ public class checkouts extends HttpServlet {
         // return error if shopping cart total balance > selected account balance
         if (sc.getTotalBalance() > ac.getBalance()) {
             request.setAttribute("errors", "Account balance is insufficient please select another account");
-            request.getRequestDispatcher("WEB-INF/viewShoppingCart.jsp").forward(request, response);
+            response.sendRedirect("/e-commerce/Products");
+            return;
         }
 
         // process the checkout

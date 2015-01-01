@@ -75,25 +75,44 @@ public class accounts extends HttpServlet {
             response.sendRedirect("/e-commerce/login");
             return;
         }
-        //create new account
-        Account ac = new Account();
-        //get account name
-        String accountName = request.getParameter("name");
-        //get accound realted customer
-        int CustomerID = (int) session.getAttribute("CustomerID");
-        Customer c = customer.find(CustomerID);
-        //get account balance
-        int Balance = Integer.parseInt(request.getParameter("balance"));
-        //assgine the parameters to object
-        ac.setAccountNum(accountName);
-        ac.setCustomerID(c);
-        ac.setBalance(Balance);
-        //store account into DB
-        account.create(ac);
-        //add account to user collection
-        c.getAccountCollection().add(ac);
-        request.setAttribute("Accounts", c.getAccountCollection());
-        request.getRequestDispatcher("WEB-INF/allAccounts.jsp").forward(request, response);
+        
+        if (request.getParameter("delete") != null) {
+            //get ProductID from request
+            int AccountID = Integer.parseInt(request.getParameter("AccountID"));
+            //get product to delete it
+            Account ac = account.find(AccountID);
+            account.remove(ac);
+            response.sendRedirect("/e-commerce/admin/accounts");
+        }
+        else {
+            //create new account
+            Account ac = new Account();
+            //get account name
+            String accountName = request.getParameter("name");
+            //get accound realted customer
+            int CustomerID = (int) session.getAttribute("CustomerID");
+            Customer c = customer.find(CustomerID);
+            try{
+                //get account balance
+                int Balance = Integer.parseInt(request.getParameter("balance"));
+                //assgine the parameters to object
+                ac.setAccountNum(accountName);
+                ac.setCustomerID(c);
+                ac.setBalance(Balance);
+                //store account into DB
+                account.create(ac);
+                //add account to user collection
+                c.getAccountCollection().add(ac);
+                c.setAccountCollection(c.getAccountCollection());
+                request.setAttribute("success","Account Created!");
+            }
+            catch (NumberFormatException e ){
+                request.setAttribute("errors", "Account Balance is not correct!");
+            }
+            
+            request.setAttribute("Accounts", c.getAccountCollection());
+            request.getRequestDispatcher("WEB-INF/allAccounts.jsp").forward(request, response);
+        }
     }
 
     /**
