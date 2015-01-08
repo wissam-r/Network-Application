@@ -42,15 +42,18 @@
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <c:if test="${sessionScope.CustomerID != null}">
+
                     <ul class="nav navbar-nav navbar-left">
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Carts <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="carts?id=${sessionScope.ShoppingCartID}">Current Cart</a></li>
-                                <li><a href="carts">All Carts</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="accounts">Accounts</a></li>
+                        <c:if test="${sessionScope.role != 0}">
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Carts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="carts?id=${sessionScope.ShoppingCartID}">Current Cart</a></li>
+                                    <li><a href="carts">All Carts</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="accounts">Accounts</a></li>
+                        </c:if>
                             <c:if test="${sessionScope.role == 0}">
                             <li class="dropdown">
                                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>

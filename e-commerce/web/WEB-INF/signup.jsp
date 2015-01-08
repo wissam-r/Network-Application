@@ -22,13 +22,13 @@
                 <p>Welcome To SU-SHOP</p>
                 <br/>
                 <form class="form-horizontal" action="?" method="POST">
-                    <input class="form-control" name="name" type="text" placeholder="name"/>
+                    <input class="form-control floating-label" name="name" type="text" placeholder="name"/>
                     <br/>
-                    <input class="form-control" name="surname" type="text" placeholder="surname"/>
+                    <input class="form-control floating-label" name="surname" type="text" placeholder="surname"/>
                     <br/>
-                    <input class="form-control" name="username" type="text" placeholder="username"/>
+                    <input class="form-control floating-label" name="username" type="text" placeholder="username"/>
                     <br/>
-                    <input class="form-control" name="password" type="password" placeholder="password"/>
+                    <input class="form-control floating-label" name="password" type="password" placeholder="password"/>
                     <br/>
                     <input class="btn btn-primary btn-flat btn-group-justified" type="submit" value="Sign Up"/>
                 </form> 

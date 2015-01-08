@@ -106,6 +106,7 @@ public class carts extends HttpServlet {
             //update cart information
             cart.edit(c);
             //return to product list
+            
             response.sendRedirect("/e-commerce/Products");
         }
     }

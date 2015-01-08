@@ -38,7 +38,9 @@
                             <div class="col-md-4">
                                 <input type="hidden" name="CartID" value="${cart.getIdShoppingCart()}"/>
                                 <div class="form-group">
+                                    <c:if test="${sessionScope.role != 0 || cart.getPayed() != 1}">
                                     <label class="control-label">Choose an Account:</label>
+                                    
                                     <c:forEach items="${Accounts}" var="account">
                                         <div class="radio radio-primary">
                                             <label>
@@ -47,10 +49,11 @@
                                             </label>
                                         </div>
                                     </c:forEach>
+                                    </c:if>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <c:if test="${cart.getPayed() == 1}">
+                                <c:if test="${cart.getPayed() == 1 || sessionScope.role == 0}">
                                     <c:set var="paymentStatus" value="disabled"></c:set>
                                 </c:if>
                                 <input class="btn btn-flat btn-primary btn-block ${paymentStatus} " type="submit" value="pay">

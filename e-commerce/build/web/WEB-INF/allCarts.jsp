@@ -16,18 +16,27 @@
                 <div class="well">
                     <p style="font-size: 20px; color: #009587;">${cart.idShoppingCart}</p>
                     <p>Total:&nbsp${cart.totalBalance}&nbsp$</p>
-                    <a class="btn btn-flat btn-primary" href="/e-commerce/carts?id=${cart.idShoppingCart}">View</a>
-                    <c:if test="${sessionScope.role == 0}">
-                        <form method="POST" action="/e-commerce/carts">
-                            <div class="input-group">
-                                <input type="hidden" name="CartID" value="${cart.idShoppingCart}"/>
-                                <input class="btn btn-flat btn-danger " type="submit" name="delete" value="DELETE"/>
+                    <div class="row">
+                        <c:set var="col" value="6"></c:set>
+                        <c:if test="${sessionScope.role != 0}">
+                            <c:set var="block" value="btn-block"></c:set>
+                            <c:set var="col" value="12"></c:set>
+                        </c:if>
+                        <div class="col-md-${col}">
+                            <a class="btn btn-flat btn-primary" href="/e-commerce/carts?id=${cart.idShoppingCart}">View</a>
+                        </div>
+                        <c:if test="${sessionScope.role == 0}">
+                            <div class="col-md-6">
+                                <form method="POST" action="/e-commerce/carts">
+                                    <input type="hidden" name="CartID" value="${cart.idShoppingCart}"/>
+                                    <input class="btn btn-flat btn-danger " type="submit" name="delete" value="DELETE"/>
+                                </form>
                             </div>
-                        </form>
-                    </c:if>
+                        </c:if>
+                    </div>
                 </div>
             </div>
-            <c:if test="itr.index % 3 == 0" >
+        <c:if test="itr.index % 3 == 0" >
             </div>
         </c:if>
     </c:forEach>

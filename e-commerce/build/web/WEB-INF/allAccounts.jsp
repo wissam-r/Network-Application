@@ -7,9 +7,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp" %>
+<c:if test="${sessionScope.role != 0}">
 <button class="btn btn-fab btn-raised btn-primary pull-right" data-toggle="modal" data-target="#new-account-modal" data-placement="left" title="Add Account">
     <i class="mdi-content-add-circle-outline"></i>
 </button>
+</c:if>
 <div class="container">
     <c:forEach var="account" items="${Accounts}" varStatus="itr">
         <c:if test="itr.index % 3 == 0" >

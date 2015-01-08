@@ -52,7 +52,7 @@ public class accounts extends HttpServlet {
         int CustomerID = (int) session.getAttribute("CustomerID");
         //get the customer from the DB
         Customer c = customer.find(CustomerID);
-
+        
         request.setAttribute("Accounts", c.getAccountCollection());
         request.getRequestDispatcher("WEB-INF/allAccounts.jsp").forward(request, response);
 

@@ -7,6 +7,7 @@ package com.ecommerce.servlets;
 
 import com.ecommerce.sessions.AccountFacade;
 import com.ecommerce.sessions.CustomerFacade;
+import com.ecommerce.sessions.ProductFacade;
 import com.ecommerce.sessions.ShoppingCartFacade;
 import java.io.IOException;
 import javax.ejb.EJB;
@@ -27,6 +28,8 @@ public class admin extends HttpServlet {
     private AccountFacade account;
     @EJB
     private ShoppingCartFacade cart;
+    @EJB
+    private ProductFacade product;
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -62,6 +65,10 @@ public class admin extends HttpServlet {
         else if(path.equals("/e-commerce/admin/carts")){
             request.setAttribute("Carts", cart.findAll());
             request.getRequestDispatcher("/WEB-INF/allCarts.jsp").forward(request, response);
+        }
+        else if (path.equals("/e-commerce/admin/products")){
+            request.setAttribute("Products", product.findAll());
+            request.getRequestDispatcher("/WEB-INF/allProducts.jsp").forward(request, response);
         }
     }
 

@@ -5,7 +5,9 @@
  */
 package com.ecommerce.servlets;
 
+import com.ecommerce.entities.Account;
 import com.ecommerce.entities.Customer;
+import com.ecommerce.sessions.AccountFacade;
 import com.ecommerce.sessions.CustomerFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,6 +27,8 @@ import javax.servlet.http.HttpSession;
 public class signup extends HttpServlet {
     @EJB
     private CustomerFacade customer;
+    @EJB
+    private AccountFacade account;
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -62,8 +66,16 @@ public class signup extends HttpServlet {
         c.setSurname(surname);
         c.setUsername(username);
         c.setPassword(password);
-        
+        c.setRole(1);
+        //save custome
         customer.create(c);
+        //create initial account
+        Account ac = new Account();
+        ac.setAccountNum("Primary Account");
+        ac.setBalance(0);
+        ac.setCustomerID(c);
+        //save account
+        account.create(ac);
         
         //forward user to login page
         response.sendRedirect("login");

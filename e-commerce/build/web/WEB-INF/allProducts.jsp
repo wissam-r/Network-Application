@@ -8,9 +8,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="header.jsp" %>
+<c:if test="${sessionScope.role != 0}">
 <button class="btn btn-fab btn-raised btn-primary pull-right" data-toggle="modal" data-target="#new-product-modal" data-placement="left" title="Add Product">
     <i class="mdi-content-add-circle-outline"></i>
 </button>
+</c:if>
 <div class="container">
     <c:forEach var="product" items="${Products}" varStatus="itr">
         <c:if test="itr.index % 3 == 0" >
